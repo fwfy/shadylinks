@@ -1,0 +1,13 @@
+{
+    "subdomains": [
+        "suspiciousfiles",
+        "freemalware"
+    ],
+    "base_domain": "example.com",
+    "extensions": [
+        "virus",
+        "malware",
+        "evil",
+        "penguin"
+    ]
+}

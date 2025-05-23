@@ -1,0 +1,28 @@
+<head>
+    <title>ShadyLinks</title>
+    <script>
+        function make_the_link() {
+            let link = document.getElementById("url_input");
+            let out = document.getElementById("link_output");
+            fetch(`/new?to=${link.value}`).then(e=>{return e.text()}).then(e=>{
+                if(e.includes("ERROR")) {
+                    return alert(e);
+                }
+                out.href = e;
+                out.innerText = e;
+                link.value = "";
+            })
+        }
+    </script>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ShadyLinks by fwfy</h1>
+        <p>put in a link and then press the button to make nobody ever trust you again</p>
+        <input type="text" id="url_input">
+        <button onclick="make_the_link()">Claim your FREE LINK!!</button><br><br>
+        <p>Result:</p>
+        <a href="#" id="link_output"></a>
+    </div>
+</body>

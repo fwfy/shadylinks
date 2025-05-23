@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "@fwfy/futil": "^1.0.1",
+    "express": "^4.18.2",
+    "ws": "^8.13.0"
+  },
+  "name": "shady_links",
+  "version": "1.0.0",
+  "description": "haha hehe hoho",
+  "main": "shady_srv.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "fwfy",
+  "license": "ISC"
+}

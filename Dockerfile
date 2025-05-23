@@ -8,5 +8,6 @@ COPY --from=build-env /app /app
 WORKDIR /app
 VOLUME ["/app/database.json"]
 VOLUME ["/app/config.json"]
+EXPOSE 3000/tcp
 
 CMD [ "/app/shady_srv.js" ]

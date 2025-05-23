@@ -1,4 +1,4 @@
-FROM node:20 as build-env
+FROM node:20 AS build-env
 WORKDIR /app
 COPY . .
 RUN npm ci

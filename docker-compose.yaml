@@ -1,0 +1,11 @@
+services:
+  shadylinks:
+    build: .
+    ports:
+      # binding to 127.0.0.1 here because you probably should be reverse proxying this. unless you hate yourself.
+      - 127.0.0.1:3000:3000
+    volumes:
+      # feel free to put somewhere else idk i cant control you
+      # just be sure to `touch database.json` before first start or docker will make it a folder (please kill me)
+      - "./database.json:/app/database.json"
+      - "./config.json:/app/config.json"

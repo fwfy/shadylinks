@@ -26,9 +26,11 @@ genURL = function (ext_len=false) {
         }
         subdomain = getRandomArr(settings.subdomains);
         good_url = true;
-        settings.extensions.forEach(e => {
-            if (countInArray(extension, e) > 1 && ext_len != DEFAULT_SUFFIX_LENGTH) good_url = false;
-        });
+        if(ext_len == DEFAULT_SUFFIX_LENGTH) {
+            settings.extensions.forEach(e => {
+                if (countInArray(extension, e) > 1) good_url = false;
+            });
+        }
         if (db.urls[subdomain] && db.urls[subdomain][extension]) good_url = false;
     }
     extension = extension.join('-');

@@ -15,18 +15,19 @@ function countInArray(array, what) {
     return array.filter(item => item == what).length;
 }
 
-genURL = function (ext_len=DEFAULT_SUFFIX_LENGTH) {
+genURL = function (ext_len=false) {
     let good_url = false;
     let extension, subdomain;
+    if(!ext_len) ext_len = DEFAULT_SUFFIX_LENGTH;
     while (!good_url) {
         extension = [];
-        for(i = 0; i < ext_len; i++) {
+        while(extension.length < ext_len) {
             extension.push(getRandomArr(settings.extensions));
         }
         subdomain = getRandomArr(settings.subdomains);
         good_url = true;
         settings.extensions.forEach(e => {
-            if (countInArray(extension, e) > 1) good_url = false;
+            if (countInArray(extension, e) > 1 && ext_len != DEFAULT_SUFFIX_LENGTH) good_url = false;
         });
         if (db.urls[subdomain] && db.urls[subdomain][extension]) good_url = false;
     }

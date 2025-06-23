@@ -73,15 +73,24 @@ app.get('/', (req, res) => {
 
 app.get('*', (req, res) => {
     let redir = false;
+    let realRedirect = false;
+    if(req.url.substring(1)[0] == ":") {
+        req.url = req.url.substring(1);
+        realRedirect = true;
+    }
     try {
         redir = db.urls[req.hostname.split('.')[0]][req.url.substring(1)] || false;
     } catch (err) {
         redir = false;
     }
     if (redir) {
-        res.status(200);
-        res.contentType('html');
-        res.end(`<meta http-equiv="refresh" content="0;URL='${redir}'"/><h6>Redirecting...<br><a href="${redir}">If you are not automatically redirected, click here.</a></h6>`);
+        if(realRedirect) {
+            res.redirect(redir);
+        } else {
+            res.status(200);
+            res.contentType('html');
+            res.end(`<meta http-equiv="refresh" content="0;URL='${redir}'"/><h6>Redirecting...<br><a href="${redir}">If you are not automatically redirected, click here.</a></h6>`);
+        }
     } else {
         res.status(404);
         res.end("404 Not Found");

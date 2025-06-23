@@ -19,6 +19,7 @@ genURL = function (ext_len=false) {
     let good_url = false;
     let extension, subdomain;
     if(!ext_len) ext_len = DEFAULT_SUFFIX_LENGTH;
+    if(ext_len > 100) throw "You fucker.";
     while (!good_url) {
         extension = [];
         while(extension.length < ext_len) {

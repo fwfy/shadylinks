@@ -3,6 +3,7 @@ const express = require('express');
 const fs = require('fs');
 const futil = require('@fwfy/futil');
 const db = new futil.JSONDB("database.json", true, 10000);
+const DEFAULT_SUFFIX_LENGTH = 4;
 if (!db.urls) db.urls = {};
 const app = express();
 
@@ -14,11 +15,14 @@ function countInArray(array, what) {
     return array.filter(item => item == what).length;
 }
 
-genURL = function () {
+genURL = function (ext_len=DEFAULT_SUFFIX_LENGTH) {
     let good_url = false;
     let extension, subdomain;
     while (!good_url) {
-        extension = [getRandomArr(settings.extensions), getRandomArr(settings.extensions), getRandomArr(settings.extensions), getRandomArr(settings.extensions)];
+        extension = [];
+        for(i = 0; i < ext_len; i++) {
+            extension.push(getRandomArr(settings.extensions));
+        }
         subdomain = getRandomArr(settings.subdomains);
         good_url = true;
         settings.extensions.forEach(e => {
@@ -38,7 +42,7 @@ app.get('/new', (req, res) => {
             return res.end("ERROR: no destination");
         } else {
             res.status(200);
-            let url = genURL();
+            let url = genURL(req.query.ext_len);
             console.log(url);
             if (!db.urls[url.subdomain]) db.urls[url.subdomain] = {};
             if (!req.query.to.indexOf("http") == 0) req.query.to = "https://" + req.query.to;

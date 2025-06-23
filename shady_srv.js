@@ -74,12 +74,13 @@ app.get('/', (req, res) => {
 app.get('*', (req, res) => {
     let redir = false;
     let realRedirect = false;
-    if(req.url.substring(1)[0] == ":") {
-        req.url = req.url.substring(1);
+    let path = req.url.split("/")[1];
+    if(path[0] == ":") {
+        path = path.split(":")[1];
         realRedirect = true;
     }
     try {
-        redir = db.urls[req.hostname.split('.')[0]][req.url.substring(1)] || false;
+        redir = db.urls[req.hostname.split('.')[0]][path] || false;
     } catch (err) {
         redir = false;
     }
